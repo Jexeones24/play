@@ -1,8 +1,8 @@
 const newsApiKey = 'd0d0224f01224291b0eae8445d16b638'
 const url = 'https://newsapi.org/v2/top-headlines?'
 
-export const getTopHeadlines = () => {
-  return fetch(`${url}sources=bbc-news&apiKEY=${newsApiKey}`)
+export const getTopBBC = () => {
+  return fetch(`${url}sources=bbc-news&apiKey=${newsApiKey}`)
   .then(resp => resp.json())
 }
 
