@@ -35,7 +35,7 @@ class App extends Component {
           <Route exact path='/headlines' render={() =>
             <Headlines headlines={this.state.headlines} />} />
           <Route exact path='/starwars' render={() =>
-            <Swapi />} />
+            <Swapi swapi={this.state.swapi} />} />
         </div>
       </Router>
 
