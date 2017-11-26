@@ -6,20 +6,21 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class App extends Component {
   state = {
-    headlines: []
+    headlines: [],
+    nasa: {},
+    swapi: {}
   }
   componentDidMount() {
-    fetch.getTopBBC()
+    const fetches = [fetch.getTopBBC(), fetch.getNasaInfo(), fetch.getStarWarsChars()]
+
+    Promise.all(fetches)
     .then(data => {
-      console.log(data.articles)
-      this.setState({ headlines: data.articles })
+      this.setState({
+        headlines: data[0].articles,
+        nasa: data[1],
+        swapi: data[2]
+      }, () => {console.log(this.state)})
     })
-
-    fetch.getStarWarsChars()
-    .then(data => {console.log('star wars characters:', data)})
-
-    fetch.getNasaInfo()
-    .then(data => {console.log('nasa info:', data)})
   }
 
   render() {
@@ -30,7 +31,7 @@ class App extends Component {
           <Route exact path='/' render={() =>
             <Home />} />
           <Route exact path='/nasa' render={() =>
-            <Nasa />} />
+            <Nasa url={this.state.nasa.url} />} />
           <Route exact path='/headlines' render={() =>
             <Headlines headlines={this.state.headlines} />} />
           <Route exact path='/starwars' render={() =>
